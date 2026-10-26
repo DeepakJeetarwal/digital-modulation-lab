@@ -1,0 +1,14 @@
+
+{
+  "name": "digital-modulation-lab",
+  "version": "1.0.0",
+  "description": "Interactive digital modulation and SNR simulation",
+  "main": "desktop/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^39.0.0"
+  }
+}

@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:*;"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Modulation Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="section-label">EXPERIMENT SETUP</div>
+
+      <label for="scheme">Modulation scheme</label>
+      <select id="scheme">
+        <option value="BPSK">BPSK</option>
+        <option value="QPSK">QPSK</option>
+        <option value="8-PSK">8-PSK</option>
+        <option value="16-QAM">16-QAM</option>
+      </select>
+
+      <label for="snr">Eb/N0 · <strong id="snrValue">8 dB</strong></label>
+      <input id="snr" type="range" min="0" max="20" value="8" />
+      <div class="range-labels">
+        <span>0 dB</span>
+        <span>20 dB</span>
+      </div>
+
+      <label for="bits">Number of bits</label>
+      <select id="bits">
+        <option value="12000">12,000</option>
+        <option value="30000" selected>30,000</option>
+        <option value="60000">60,000</option>
+        <option value="120000">120,000</option>
+      </select>
+
+      <button id="runButton" class="primary-button">
+        Run simulation ↗
+      </button>
+
+      <div class="divider"></div>
+
+      <div class="section-label">QUICK SNR PRESETS</div>
+
+      <div class="preset-row">
+        <button data-snr="0">0 dB</button>
+        <button data-snr="5">5 dB</button>
+        <button data-snr="10">10 dB</button>
+        <button data-snr="20">20 dB</button>
+      </div>
+
+      <div class="sidebar-note">
+        <span class="note-icon">i</span>
+        <p>
+          AWGN channel<br />
+          Coherent detection<br />
+          BER performance analysis
+        </p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="eyebrow">COMMUNICATION SYSTEMS / LAB 01</div>
+
+      <h2>Signal performance</h2>
+
+      <p class="description">
+        Investigate how noise influences the reliability of digital transmission.
+      </p>
+
+      <section class="metrics">
+        <article class="metric-card">
+          <div class="metric-label">ENERGY PER BIT / NOISE</div>
+          <div class="metric-value" id="metricSnr">8 dB</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-label">MODULATION</div>
+          <div class="metric-value" id="metricScheme">BPSK</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-label">BIT ERROR RATE</div>
+          <div class="metric-value sage-text" id="metricBer">—</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-label">BIT ERRORS</div>
+          <div class="metric-value copper-text" id="metricErrors">—</div>
+        </article>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>BER vs. Eb/N0</h3>
+            <p>
+              Simulated BER across schemes · Dashed line shows theoretical reference
+            </p>
+          </div>
+
+          <span class="chart-tag">AWGN CHANNEL</span>
+        </div>
+
+        <div id="berChart" class="chart-placeholder">
+          <div class="empty-icon">⌁</div>
+          <h3>Your experiment starts here</h3>
+          <p>Configure your parameters and run the simulation.</p>
+        </div>
+      </section>
+
+      <div class="lower-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Constellation diagram</h3>
+              <p id="constellationSubtitle">Received I/Q symbols</p>
+            </div>
+          </div>
+
+          <div id="constellationChart" class="chart-placeholder small-chart">
+            Waiting for simulation…
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Bit transmission</h3>
+              <p>Transmitted vs. recovered bits</p>
+            </div>
+          </div>
+
+          <div id="bitResults" class="bit-placeholder">
+            Run an experiment to inspect the received bits.
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        DIGITAL MODULATION LAB
+        <span>·</span>
+        PYTHON SIMULATION ENGINE
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
